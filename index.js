@@ -12,7 +12,7 @@ const animateWord = function (now, unit) {
 // Instantiate a TextAlive Player instance
 const player = new Player({
   app: {
-    token: "xGPvVYRPeDTSuVUy",
+    token: "0NLkc52Saxi8vT5f",
   },
   mediaElement: document.querySelector("#media"),
 });
