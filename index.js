@@ -94,6 +94,7 @@ function onAppReady(app) {
   // 楽曲URLが指定されていなければ マジカルミライ 2022テーマ曲を読み込む
   // Load a song when a song URL is not specified
   if (!app.songUrl) {
+    
     player.createFromSongUrl("https://www.youtube.com/watch?v=ZOTJgXBkJpc");
   }
 }
