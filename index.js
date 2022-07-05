@@ -174,3 +174,12 @@ document.addEventListener('mousemove',function(e) {
   cursor.style.left = x + "px";
   cursor.style.top = y + "px";
 });
+
+var cursor2 = document.getElementById('cursor-2');
+
+document.addEventListener('mousemove',function(e) {
+  var x = e.clientX;
+  var y = e.clientY;
+  cursor2.style.left = x + "px";
+  cursor2.style.top = y + "px";
+});
