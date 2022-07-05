@@ -29,7 +29,7 @@ player.addListener({
   onStop,
 });
 
-const playBtns = document.querySelectorAll(".play");
+const playBtns = document.querySelectorAll(".open");
 const jumpBtn = document.querySelector("#jump");
 const pauseBtn = document.querySelector("#pause");
 const rewindBtn = document.querySelector("#rewind");
@@ -156,13 +156,23 @@ function onThrottledTimeUpdate(position) {
 // Hide #overlay when music playback started
 function onPlay() {
   document.querySelector("#overlay").style.display = "none";
+  document.querySelector(".main").style.display = "flex";
 }
 
 // 再生が一時停止・停止したら歌詞表示をリセット
 // Reset lyrics text field when music playback is paused or stopped
 function onPause() {
-  document.querySelector("#text").textContent = "-";
+  document.querySelector("#text").textContent = "";
 }
 function onStop() {
-  document.querySelector("#text").textContent = "-";
+  document.querySelector("#text").textContent = "";
 }
+
+var cursor = document.getElementById('cursor');
+
+document.addEventListener('mousemove',function(e) {
+  var x = e.clientX;
+  var y = e.clientY;
+  cursor.style.left = x + "px";
+  cursor.style.top = y + "px";
+});
