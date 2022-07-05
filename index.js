@@ -137,7 +137,6 @@ function onTimerReady(t) {
   // Disable jump button if no lyrics is available
   jumpBtn.disabled = !player.video.firstChar;
 }
-
 /**
  * 動画の再生位置が変更されたときに呼ばれる（あまりに頻繁な発火を防ぐため一定間隔に間引かれる）
  *
@@ -151,14 +150,14 @@ function onThrottledTimeUpdate(position) {
   // さらに精確な情報が必要な場合は `player.timer.position` でいつでも取得できます
   // More precise timing information can be retrieved by `player.timer.position` at any time
 }
-
 // 再生が始まったら #overlay を非表示に
 // Hide #overlay when music playback started
 function onPlay() {
-  document.querySelector("#overlay").style.display = "none";
-  document.querySelector(".main").style.display = "flex";
+  setTimeout(function(){
+    document.querySelector(".top").style.display = "none";
+    document.querySelector(".main").style.display = "flex";
+  },600);
 }
-
 // 再生が一時停止・停止したら歌詞表示をリセット
 // Reset lyrics text field when music playback is paused or stopped
 function onPause() {
@@ -167,7 +166,6 @@ function onPause() {
 function onStop() {
   document.querySelector("#text").textContent = "";
 }
-
 var cursor = document.getElementById('cursor');
 
 document.addEventListener('mousemove',function(e) {
