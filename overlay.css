@@ -24,14 +24,15 @@
     justify-content: center;
     z-index: 50;
 }
-#cursor {
+#cursor,
+#cursor-2 {
     position: absolute;
     width: 20px;
     height: 20px;
     border: 2px solid aquamarine;
     box-shadow: 0 0 20px rgb(50, 224, 255),  0 0 10px rgba(50, 224, 255, 0.3) inset;
     box-sizing: border-box;
-    transition: 0.1s;
+    transition: 0.01s;
     transform: translate(-50%, -50%);
     border-radius: 50%;
     z-index: 121;
@@ -79,8 +80,8 @@
     animation: click 0.5s forwards;
 }
 .open:hover ~ #cursor {
-    width: 40px;
-    height: 40px;
+    width: 50px;
+    height: 50px;
     box-shadow: 0 0 30px rgb(50, 224, 255),  0 0 20px rgba(50, 224, 255, 0.3) inset;
     animation: blink 9s infinite;
     animation-delay: 3s;
