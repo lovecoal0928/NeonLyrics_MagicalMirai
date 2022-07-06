@@ -24,15 +24,14 @@
     justify-content: center;
     z-index: 50;
 }
-#cursor,
-#cursor-2 {
+#cursor {
     position: absolute;
     width: 20px;
     height: 20px;
     border: 2px solid aquamarine;
     box-shadow: 0 0 20px rgb(50, 224, 255),  0 0 10px rgba(50, 224, 255, 0.3) inset;
     box-sizing: border-box;
-    transition: 0.01s;
+    transition: 0.05s;
     transform: translate(-50%, -50%);
     border-radius: 50%;
     z-index: 121;

@@ -22,7 +22,6 @@
     </div>
     <!-- main section -->
     <div class="main">
-      <div id="cursor-2"></div>
       <section id="lighting-bg">
         <span class="lighting"></span><span class="lighting"></span><span class="lighting"></span><span class="lighting"></span><span class="lighting"></span><span class="lighting"></span><span class="lighting"></span><span class="lighting"></span><span class="lighting"></span><span class="lighting"></span><span class="lighting"></span><span class="lighting"></span><span class="lighting"></span><span class="lighting"></span><span class="lighting"></span><span class="lighting"></span><span class="lighting"></span><span class="lighting"></span>
         <span class="lighting"></span><span class="lighting"></span><span class="lighting"></span><span class="lighting"></span><span class="lighting"></span><span class="lighting"></span><span class="lighting"></span><span class="lighting"></span><span class="lighting"></span><span class="lighting"></span><span class="lighting"></span><span class="lighting"></span><span class="lighting"></span><span class="lighting"></span><span class="lighting"></span><span class="lighting"></span><span class="lighting"></span><span class="lighting"></span>
@@ -208,11 +207,12 @@
       <div id="media"></div>
       <div id="container">
         <div>
-          <p id="lyrics">
-            <span id="text"></span>
-          </p>
+          <div id="lyrics">
+            <div id="text"></div>
+          </div>
         </div>
       </div>
+      <div id="cursorB"></div>
       <div class="control-section">
         <div id="header">
           <div id="meta">
@@ -221,19 +221,16 @@
           </div>
               <a></a>
         </div>
+        <div id="seekbar">
+          <div></div>
+        </div>
         <div id="footer">
-          <p>
-            <span id="position">[ms]</span>
-          </p>
           <div id="control" style="display: none">
-            <input type="range" id="mediaSlider" min="0" max="100" step="1" value="0" class="disabled">
             <button id="rewind" class="disabled"><i class="fa-solid fa-backward"></i></button>
-            <button id="play" class="disabled"><i class="fa-regular fa-circle-play"></i></button>
+            <button id="play" class="disabled"><i class="fa-solid fa-play"></i></button>
             <button id="mute" class="disabled"><i class="fa-solid fa-volume-xmark"></i></button>
-            <p>音量：
-              <input type="range" id="volume" min="0" max="100" step="2" value="50" class="disabled">
-              <span id="vol_range">50</span>
-            </p>
+            <input type="range" id="volume" min="0" max="100" step="2" value="50">
+            <span id="vol_range">50</span>
           </div>
         </div>
       </div>
