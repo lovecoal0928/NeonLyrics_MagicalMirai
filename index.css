@@ -10,8 +10,8 @@ body {
 
 #cursorB {
   position: absolute;
-  width: 40px;
-  height: 40px;
+  width: 20px;
+  height: 20px;
   border: 2px solid aquamarine;
   box-shadow: 0 0 20px rgb(50, 224, 255),  0 0 10px rgba(50, 224, 255, 0.3) inset;
   box-sizing: border-box;
@@ -30,7 +30,7 @@ body {
   cursor: none;
   height: 100vh;
   width: 100%;
-  background: linear-gradient( rgb(42, 29, 66), rgb(15, 10, 25));
+  background: linear-gradient( rgb(12, 7, 22), rgb(15, 10, 25));
 }
 #lightingBg {
   position: relative;
@@ -40,7 +40,6 @@ body {
   display: flex;
   flex-wrap: wrap-reverse;
   z-index: 50;
-  opacity: 1;
   overflow: hidden;
 }
 .lighting {
@@ -58,6 +57,7 @@ body {
   height: 100%;
   background: aqua;
   transform: scale(0.1);
+  opacity: 0.5;
   box-shadow: 0 0 10px aqua,
   0 0 90px aqua;
   border-radius: 50%;
@@ -73,7 +73,9 @@ body {
   box-shadow: 0 0 20px aqua,
   0 0 40px aqua,
   0 0 60px aqua,
-  0 0 80px aqua;
+  0 0 80px aqua,
+  0 0 100px aqua;
+  opacity: 1;
   transition: 0s;
 }
 
@@ -108,18 +110,23 @@ body {
   display: flex;
 }
 
-.control-section {
+#control-section {
   position: absolute;
   bottom: 0;
   left: 50%;
   transform: translateX(-50%);
-  width: 450px;
+  width: 500px;
   margin-bottom: 50px;
   padding: 20px;
   border: 2px solid magenta;
-  box-shadow: 0 0 60px rgba(250, 30, 210, 0.4), 0 0 60px rgba(250, 30, 210, 0.4) inset;
+  background: rgb(15, 10, 25);
+  opacity: 1;
+  box-shadow: 0 0 30px rgba(250, 30, 210, 0.4), 0 0 30px rgba(250, 30, 210, 0.4) inset;
   border-radius: 100px;
   z-index: 100;
+}
+#control-section.active.beat {
+  animation: activeBeats2 0.2s forwards;
 }
 #header {
   position: relative;
@@ -147,18 +154,18 @@ body {
 }
 #seekbar {
   margin: 10px;
-  border-radius: 5px;
-  height: 7px;
-  background: rgb(42, 87, 87);
-}
-#seekbar:hover { 
-  box-shadow: 0 0 20px rgba(0, 255, 255, 0.7);
+  border-radius: 10px;
+  height: 12px;
+  border: 3px solid rgb(42, 87, 87);
 }
 
 #seekbar > div {
   width: 0;
-  height: 100%;
-  border-radius: 5px;
+  height: 16px;
+  margin: -2px 0 0 -2px;
+  border-radius: 10px;
+  border:none;
+  box-shadow: 0 0 30px rgb(0, 255, 255), 0 0 10px rgb(0, 255, 255);
   background: aqua;
 }
 
@@ -182,17 +189,41 @@ i {
   border-color: aqua;
   color: aqua;
   transition: 0.1s ease;
-  box-shadow: 0 0 30px rgb(85, 255, 232), 0 0 20px rgba(85, 255, 232, 0.5) inset;
+  box-shadow: 0 0 30px rgb(85, 255, 232), 0 0 20px rgba(85, 255, 232, 0.6) inset;
   cursor: none;
 }
 #control > button:focus {
   cursor: none;
   animation: clicked 0.5s forwards;
 }
-
-#control > input {  
+#control > input[type="range"] {
+  outline: 0;
+  -webkit-appearance: none;
+  appearance: none;
   cursor: none;
+  background: rgb(15, 10, 25);
+  height: 12px;
+  border: 2px solid rgb(42, 87, 87);
+  border-radius: 7px;
+  accent-color: aqua;
 }
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 12px;
+  height: 12px;
+  border-radius: 7px;
+  box-shadow: 0 0 35px rgb(85, 255, 232);
+  background: aqua;
+}
+input[type="range"]:active::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgb(85, 255, 232),
+    0 0 35px rgb(85, 255, 232);
+}
+
 @keyframes clicked {
     0% {   border-color: aqua;
       color: aqua; }
@@ -212,11 +243,20 @@ i {
   0% {
     width: 40px;
     height: 40px;
-    box-shadow: 0 0 20px rgb(50, 224, 255),  0 0 10px rgba(50, 224, 255, 0.3) inset;
+    box-shadow: 0 0 30px rgb(50, 224, 255),  0 0 20px rgba(50, 224, 255, 0.3) inset;
   }
   100% {
     width: 20px;
-    box-shadow: 0 0 40px rgb(50, 224, 255),  0 0 25px rgba(50, 224, 255, 0.3) inset;
+    box-shadow: 0 0 20px rgb(50, 224, 255),  0 0 10px rgba(50, 224, 255, 0.3) inset;
     height: 20px;
+  }
+}
+
+@keyframes activeBeats2 {
+  0% {
+    box-shadow: 0 0 60px rgba(250, 30, 210, 0.4), 0 0 60px rgba(250, 30, 210, 0.4) inset;
+  }
+  100% {
+    box-shadow: 0 0 30px rgba(250, 30, 210, 0.4), 0 0 30px rgba(250, 30, 210, 0.4) inset;
   }
 }

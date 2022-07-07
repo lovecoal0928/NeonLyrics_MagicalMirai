@@ -22,6 +22,7 @@ const player = new Player({
 const startVideo = document.querySelector(".open");
 const lightingBg = document.querySelector("#lightingBg");
 const textContainer = document.querySelector("#text");
+const controlSection = document.querySelector("#control-section");
 const seekbar = document.querySelector("#seekbar");
 const paintedSeekbar = seekbar.querySelector("div");
 let musicVolume = document.querySelector(`input[type='range'][id='volume']`);
@@ -103,9 +104,11 @@ player.addListener({
       if (beat) {
         requestAnimationFrame(() => {
           cursor2.className = "active";
+          controlSection.className = "active";
           requestAnimationFrame(() => {
             cursor2.className = "active beat";
-          });
+            controlSection.className = "active beat";
+        });
         });
       } b = beat;
     }
