@@ -31,7 +31,7 @@
     border: 2px solid aquamarine;
     box-shadow: 0 0 20px rgb(50, 224, 255),  0 0 10px rgba(50, 224, 255, 0.3) inset;
     box-sizing: border-box;
-    transition: 0.05s;
+    transition: 0.02s;
     transform: translate(-50%, -50%);
     border-radius: 50%;
     z-index: 121;

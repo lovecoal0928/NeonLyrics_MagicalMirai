@@ -11,30 +11,32 @@ const animateWord = function (now, unit) {
 const player = new Player({
   app: {
     token: "2huPtS6L4YdsaZsm", parameters: [
-      {title: "Gradation start color", name: "gradationStartColor", className: "Color", initialValue: "#63d0e2" },
-      {title: "Gradation end color", name: "gradationEndColor", className: "Color", initialValue: "#ff9438" },
-  ]},
-  
+      { title: "Gradation start color", name: "gradationStartColor", className: "Color", initialValue: "#63d0e2" },
+      { title: "Gradation end color", name: "gradationEndColor", className: "Color", initialValue: "#ff9438" },
+    ]
+  },
+
   mediaElement: document.querySelector("#media"),
 });
 
 const startVideo = document.querySelector(".open");
-const bar = document.querySelector("#bar");
+const lightingBg = document.querySelector("#lightingBg");
 const textContainer = document.querySelector("#text");
 const seekbar = document.querySelector("#seekbar");
 const paintedSeekbar = seekbar.querySelector("div");
+let musicVolume = document.querySelector(`input[type='range'][id='volume']`);
 let b, c;
 
 startVideo.addEventListener('click', () => {
-  // 再生が始まったら #overlay を非表示に
-  setTimeout(function(){
+  // #overlay を非表示に
+  setTimeout(function () {
     document.querySelector(".top").style.display = "none";
     document.querySelector(".main").style.display = "block";
-  },600);
+  }, 600);
 });
-  
+
 let cursor = document.getElementById('cursor');
-document.addEventListener('mousemove',function(e) {
+document.addEventListener('mousemove', function (e) {
   let x = e.clientX;
   let y = e.clientY;
   cursor.style.left = x + "px";
@@ -42,23 +44,23 @@ document.addEventListener('mousemove',function(e) {
 });
 
 let cursor2 = document.getElementById('cursorB');
-document.addEventListener('mousemove',function(e) {
+document.addEventListener('mousemove', function (e) {
   let x = e.clientX;
   let y = e.clientY;
   cursor2.style.left = x + "px";
   cursor2.style.top = y + "px";
 });
 
-// TextAlive Player のイベントリスナを登録する
+// TextAlive Player
 player.addListener({
   onAppReady(app) {
-  // TextAlive ホストと接続されていなければ再生コントロールを表示する
+    // TextAlive ホストと接続されていなければ再生コントロールを表示する
     if (!app.managed) {
       document.querySelector("#control").style.display = "block";
     }
     if (!app.songUrl) {
       document.querySelector("#media").className = "disabled";
-      
+
       player.createFromSongUrl("https://piapro.jp/t/RoPB/20220122172830", {
         video: {
           // 音楽地図訂正履歴: https://songle.jp/songs/2243651/history
@@ -72,18 +74,9 @@ player.addListener({
       });
     }
   },
-  
-  /* パラメタが更新されたら呼ばれる */
-  onAppParameterUpdate: () => {
-    const params = player.app.options.parameters;
-    const sc = player.app.parameters.gradationStartColor, scString = sc ? `rgb(${sc.r}, ${sc.g}, ${sc.b})` : params[0].initialValue;
-    const ec = player.app.parameters.gradationEndColor, ecString = ec ? `rgb(${ec.r}, ${ec.g}, ${ec.b})` : params[1].initialValue;
-    document.body.style.backgroundColor = ecString;
-    document.body.style.backgroundImage = `linear-gradient(0deg, ${ecString} 0%, ${scString} 100%)`;
-  },
 
   onVideoReady(video) {
-  // 楽曲情報を表示する
+    // 楽曲情報を表示する
     document.querySelector("#artist").textContent = player.data.song.artist.name;
     document.querySelector("#song").textContent = player.data.song.name;
 
@@ -92,33 +85,35 @@ player.addListener({
   },
 
   onTimerReady() {
-  // ボタンを有効化する
+    // ボタンを有効化する
     if (!player.app.managed) {
       document.querySelector("#control > button").className = "";
       document.querySelector("#control > input").className = "";
     }
   },
-  
+
   // 再生位置を更新
   onTimeUpdate(position) {
     // シークバーの表示を更新
-    paintedSeekbar.style.width = `${
-      parseInt((position * 1000) / player.video.duration) / 10
-    }%`;
+    paintedSeekbar.style.width = `${parseInt((position * 1000) / player.video.duration) / 10
+      }%`;
 
     let beat = player.findBeat(position);
-    // if (b !== beat) {
-    //   if (beat) {
-    //     requestAnimationFrame(() => {
-    //       bar.className = "active";
-    //       requestAnimationFrame(() => {
-    //         bar.className = "active beat";
-    //       });
-    //     });
-    //   }
-    //   b = beat;
-    // }
+    if (b !== beat) {
+      if (beat) {
+        requestAnimationFrame(() => {
+          cursor2.className = "active";
+          requestAnimationFrame(() => {
+            cursor2.className = "active beat";
+          });
+        });
+      } b = beat;
+    }
 
+    let segments = player.findChorus(position);
+    if (segments) {
+      console.log(segments);
+    }
     // 歌詞情報がなければこれで処理を終わる
     if (!player.video.firstChar) {
       return;
@@ -131,7 +126,7 @@ player.addListener({
 
     // 500ms先に発声される文字を取得
     let current = c || player.video.firstChar;
-    while (current && current.startTime < position) {
+    while (current && current.startTime < position + 100) {
       // 新しい文字が発声されようとしている
       if (c !== current) {
         newChar(current);
@@ -140,20 +135,12 @@ player.addListener({
       current = current.next;
     }
   },
-  onVolumeChange() {
-    // ボリューム変更
-    let music_volume = document.getElementById("volume");
-    console.log(elem_volume.value);
-    player.volume = music_volume.value;
-    document.getElementById('vol_range').innerHTML = elem_volume.value
-  },
 
   /* 楽曲の再生が始まったら呼ばれる */
   onPlay() {
     let element = document.querySelector("#play > i");
     element.classList.replace('fa-play', 'fa-pause');
   },
-
   /* 楽曲の再生が止まったら呼ばれる */
   onPause() {
     const element = document.querySelector("#play > i");
@@ -168,11 +155,12 @@ document.querySelector("#play").addEventListener(
     if (player) {
       if (player.isPlaying) {
         player.requestPause();
+        console.log('player paused');
         const elem = document.activeElement;
         elem.blur();
-        
       } else {
         player.requestPlay();
+        console.log('player resumed');
         const elem = document.activeElement;
         elem.blur();
       }
@@ -185,17 +173,66 @@ document.querySelector("#rewind").addEventListener(
   "click", (e) => {
     e.preventDefault();
     player.requestMediaSeek(0);
+    paintedSeekbar.style.width = 0;
+    console.log('back to start');
+    player.requestMediaSeek(0);
+    paintedSeekbar.style.width = 0;
     const elem = document.activeElement;
     elem.blur();
 });
 
 // ミュートボタン
+let v = 0;
 document.querySelector("#mute").addEventListener(
-  "click", (e) => {
+  "click", (e) =>{
     e.preventDefault();
-    player.volueme = (0);
-    const elem = document.activeElement;
-    elem.blur();
+    if (player) {
+      // 最後の音量を記録して音声をミュートする
+      if (player.volume > 0) {
+        v = player.volume;
+        console.log('recent player volume : '+ v*2);
+        player.volume = '0';
+        musicVolume.value = '0';
+        let element = document.querySelector("#mute > i");
+        element.classList.replace('fa-volume-high', 'fa-volume-xmark');
+        const elem = document.activeElement;
+        elem.blur();
+      // すでにミュートの場合、最後に記録した音声を取り出してミュートを解除する
+      } else {
+        player.volume = v;
+        musicVolume.value = v;
+        console.log('volume reset to '+ player.volume*2);
+        let element = document.querySelector("#mute > i");
+        element.classList.replace('fa-volume-xmark', 'fa-volume-high');
+        const elem = document.activeElement;
+        elem.blur();
+      }
+    }
+    return false;
+});
+
+// 音量調整
+player.volume = musicVolume.value;
+console.log('default volume : '+ player.volume*2)
+
+musicVolume.addEventListener(
+  "change", (e) => {
+    e.preventDefault();
+    if (player) {
+      if (player.volume == 0) {
+        v = player.volume;
+        console.log('recent player volume : '+ v*2);
+        player.volume = musicVolume.value;
+        let element = document.querySelector("#mute > i");
+        element.classList.replace('fa-volume-high', 'fa-volume-xmark');
+      } else {
+        player.volume = musicVolume.value;
+        console.log('volume set to '+ player.volume*2);
+        let element = document.querySelector("#mute > i");
+        element.classList.replace('fa-volume-xmark', 'fa-volume-high');
+      }
+    }
+    return false;
 });
 
 /* シークバー */
@@ -213,7 +250,7 @@ seekbar.addEventListener("click", (e) => {
  * 新しい文字の発声時に呼ばれる
  * Called when a new character is being vocalized
  */
- function newChar(current) {
+function newChar(current) {
   // 品詞 (part-of-speech)
   // https://developer.textalive.jp/packages/textalive-app-api/interfaces/iword.html#pos
   const classes = [];

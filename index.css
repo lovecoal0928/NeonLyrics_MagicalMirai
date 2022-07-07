@@ -10,12 +10,12 @@ body {
 
 #cursorB {
   position: absolute;
-  width: 20px;
-  height: 20px;
+  width: 40px;
+  height: 40px;
   border: 2px solid aquamarine;
   box-shadow: 0 0 20px rgb(50, 224, 255),  0 0 10px rgba(50, 224, 255, 0.3) inset;
   box-sizing: border-box;
-  transition: 0.05s;
+  transition: 0.02s;
   transform: translate(-50%, -50%);
   border-radius: 50%;
   z-index: 120;
@@ -32,7 +32,7 @@ body {
   width: 100%;
   background: linear-gradient( rgb(42, 29, 66), rgb(15, 10, 25));
 }
-#lighting-bg {
+#lightingBg {
   position: relative;
   height: 100vh;
   width: 100%;
@@ -40,13 +40,13 @@ body {
   display: flex;
   flex-wrap: wrap-reverse;
   z-index: 50;
-  opacity: 0.5;
+  opacity: 1;
   overflow: hidden;
 }
 .lighting {
   position: relative;
-  width: 30px;
-  height: 30px;
+  width: 40px;
+  height: 40px;
   display: block;
 }
 .lighting::before {
@@ -59,16 +59,21 @@ body {
   background: aqua;
   transform: scale(0.1);
   box-shadow: 0 0 10px aqua,
-  0 0 30px aqua,
-  0 0 50px aqua,
-  0 0 70px aqua,
   0 0 90px aqua;
   border-radius: 50%;
   pointer-events: none;
   transition: 1s;
 }
+#cursorB.active.beat {
+  animation: activeBeats 0.2s forwards;
+}
+
 .lighting:hover::before {
-  transform:scale(0.7);
+  transform:scale(0.4);
+  box-shadow: 0 0 20px aqua,
+  0 0 40px aqua,
+  0 0 60px aqua,
+  0 0 80px aqua;
   transition: 0s;
 }
 
@@ -87,6 +92,8 @@ body {
   color: aquamarine;
 }
 #text > div {
+  position: relative;
+  z-index: 60;
   /* 文字ごとに改行しない / No line-break per char */
   display: inline-block;
 }
@@ -199,4 +206,17 @@ i {
       color: aqua; }
     100% {  border: 2px solid rgb(42, 87, 87);
       color: rgb(42, 87, 87); }
+}
+
+@keyframes activeBeats {
+  0% {
+    width: 40px;
+    height: 40px;
+    box-shadow: 0 0 20px rgb(50, 224, 255),  0 0 10px rgba(50, 224, 255, 0.3) inset;
+  }
+  100% {
+    width: 20px;
+    box-shadow: 0 0 40px rgb(50, 224, 255),  0 0 25px rgba(50, 224, 255, 0.3) inset;
+    height: 20px;
+  }
 }
