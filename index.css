@@ -1,10 +1,15 @@
+.wf-roundedmplus1c { font-family: "M PLUS Rounded 1c"; }
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: 0;
+  border: none;
+  user-select: none;
 }
 
 body {
+  position: relative;
   overflow: hidden;
 }
 
@@ -13,7 +18,7 @@ body {
   width: 20px;
   height: 20px;
   border: 2px solid aquamarine;
-  box-shadow: 0 0 20px rgb(50, 224, 255),  0 0 10px rgba(50, 224, 255, 0.3) inset;
+  box-shadow: 0 0 20px rgb(50, 224, 255), 0 0 10px rgba(50, 224, 255, 0.3) inset;
   box-sizing: border-box;
   transition: 0.02s;
   transform: translate(-50%, -50%);
@@ -22,6 +27,103 @@ body {
   opacity: 1;
   pointer-events: none;
 }
+.ringP {
+  animation: ring 0.5s linear 0s;
+  border-radius: 50%;
+  border: 4px solid magenta; 
+  box-shadow: 0 0 60px rgba(250, 30, 210),
+    0 0 60px rgba(250, 30, 210, 0.8) inset;
+  position: absolute;
+  z-index: 200;
+  cursor: none;
+}
+.ringY {
+  animation: ring 0.5s linear 0s;
+  border-radius: 50%;
+  border: 4px solid yellow;
+  box-shadow: 0 0 60px rgb(255, 229, 85),
+  0 0 60px rgba(255, 229, 85, 0.6) inset;
+  position: absolute;
+  z-index: 200;
+  cursor: none;
+}
+.ringM {
+  animation: ring 0.5s linear 0s;
+  border-radius: 50%;
+  border: 4px solid aquamarine;
+  box-shadow: 0 0 60px rgb(85, 255, 200),
+    0 0 60px rgba(85, 255, 200, 0.6) inset;
+  position: absolute;
+  z-index: 200;
+  cursor: none;
+}
+.ringA {
+  animation: ring 0.5s linear 0s;
+  border-radius: 50%;
+  border: 4px solid aqua;
+  box-shadow: 0 0 60px rgb(85, 255, 255),
+    0 0 60px rgba(85, 255, 255, 0.6) inset;
+  position: absolute;
+  z-index: 200;
+  cursor: none;
+}
+@keyframes ring {
+    0% {
+      height: 50px;
+      opacity: 1;
+      transform: translate(-25px, -25px);
+      width: 50px;
+    }
+    10% {
+      height: 50px;
+      opacity: 1;
+      transform: translate(-25px, -25px);
+      width: 50px;
+    }
+    12% { opacity: 0; }
+    28% { opacity: 0; }
+    30% {
+      height: 100px;
+      opacity: 0.9;
+      transform: translate(-50px, -50px);
+      width: 100px;
+    }
+    40% {
+      height: 100px;
+      opacity: 0.9;
+      transform: translate(-50px, -50px);
+      width: 100px;
+    }
+    42% { opacity: 0; }
+    58% { opacity: 0; }
+    60% {
+      height: 150px;
+      opacity: 0.7;
+      transform: translate(-75px, -75px);
+      width: 150px;
+    }
+    70% {
+      height: 150px;
+      opacity: 0.7;
+      transform: translate(-75px, -75px);
+      width: 150px;
+    }
+    72% { opacity: 0; }
+    88% { opacity: 0; }
+    90% {
+      height: 200px;
+      opacity: 0.5;
+      transform: translate(-100px, -100px);
+      width: 200px;
+    }
+    100% {
+      height: 200px;
+      opacity: 0.5;
+      transform: translate(-100px, -100px);
+      width: 200px;
+    }
+}
+
 .main {
   position: absolute;
   top: 0;
@@ -30,24 +132,28 @@ body {
   cursor: none;
   height: 100vh;
   width: 100%;
-  background: linear-gradient( rgb(12, 7, 22), rgb(15, 10, 25));
+  background: linear-gradient(rgb(12, 7, 22), rgb(15, 10, 25));
 }
+
 #lightingBg {
-  position: relative;
-  height: 100vh;
-  width: 100%;
-  box-shadow: 0 0 100px rgba(0, 0, 0, 0.3) inset;
+  position: absolute;
+  transition: 0.02s;
+  height: 110vh;
+  width: 105%;
+  box-shadow: 0 0 100px rgba(0, 0, 0, 0.5) inset;
   display: flex;
   flex-wrap: wrap-reverse;
   z-index: 50;
   overflow: hidden;
 }
+
 .lighting {
   position: relative;
-  width: 40px;
-  height: 40px;
+  width: 48px;
+  height: 50px;
   display: block;
 }
+
 .lighting::before {
   content: '';
   position: absolute;
@@ -57,25 +163,19 @@ body {
   height: 100%;
   background: aqua;
   transform: scale(0.1);
-  opacity: 0.5;
+  opacity: 0.4;
   box-shadow: 0 0 10px aqua,
-  0 0 90px aqua;
+  0 0 30px aqua,
+  0 0 50px aqua,
+  0 0 70px aqua,
+    0 0 90px aqua;
   border-radius: 50%;
   pointer-events: none;
   transition: 1s;
 }
-#cursorB.active.beat {
-  animation: activeBeats 0.2s forwards;
-}
-
 .lighting:hover::before {
-  transform:scale(0.4);
-  box-shadow: 0 0 20px aqua,
-  0 0 40px aqua,
-  0 0 60px aqua,
-  0 0 80px aqua,
-  0 0 100px aqua;
-  opacity: 1;
+  transform: scale(0.5);
+  opacity: 0.9;
   transition: 0s;
 }
 
@@ -86,48 +186,143 @@ body {
   height: 100vh;
   width: 100%;
   display: flex;
-  font-weight: bold;
+  pointer-events: none;
 }
+
 #lyrics {
-  margin: 100px;
-  font-size: 4em;
-  color: aquamarine;
+  position: absolute;
+  bottom: 30%;
+  left: 50%;
+  transform: translateX(-50%);
+  transition: 0.02s;
+  width: 1100px;
+  margin: 100px auto;
+  text-align: center;
+  font-size: 4.5rem;
+  font-family: "M PLUS Rounded 1c";
+  font-weight: 100;
+  z-index: 90;
 }
-#text > div {
+
+#lyrics>p {
   position: relative;
-  z-index: 60;
-  /* 文字ごとに改行しない / No line-break per char */
+  /* 文字ごとに改行しない */
   display: inline-block;
+  margin-bottom: 5px;
+  color: aqua;
+  text-shadow: 0 0 30px rgb(0, 255, 255);
+  animation: showLyrics 0.2s;
+  pointer-events: none;
 }
-#text > div > div {
-  animation: showLyrics 0.5s;
+#lyrics>p.noun:nth-child(3n-2) {
+  color: magenta;
+  text-shadow: 0 0 30px magenta;
+  pointer-events: all;
+}
+#lyrics>p.noun:nth-child(3n-1) {
+  color: yellow;
+  text-shadow: 0 0 30px yellow;
+  pointer-events: all;
+}
+#lyrics>p.noun:nth-child(3n) {
+  color: aquamarine;
+  text-shadow: 0 0 30px aquamarine;
+  pointer-events: all;
+}
+#lyrics>p.noun:hover {
+  text-shadow: 0 0 10px, 0 0 30px, 0 0 50px;
+}
+#lyrics>p.noun.ripple {
+  position: absolute;
+  border-radius: 2px solid  aqua;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  animation: rippleEffect 1200ms 1;
+  opacity: 0;
+}
+@keyframes rippleEffect {
+  from {
+      transform: scale(1);
+      opacity: 0.45;
+  }
+  to {
+      transform: scale(50);
+      opacity: 0;
+  }
 }
 
 #media {
   position: absolute;
-  top: 0;
+  bottom: 0;
   left: 0;
-  display: flex;
+  display: block;
+  z-index: 70;
+  cursor: none;
+  pointer-events: none;
 }
 
+#songSelect {
+  position: absolute;
+  outline: none;
+  bottom: 0;
+  right: 0;
+  margin: 0 60px 30px 0;
+  display: block;
+  text-align: center;
+  z-index: 70;
+  cursor: none;
+  font-family: "M PLUS Rounded 1c";
+  pointer-events: none;
+}
+#songSelect .songs.off {
+  padding: 30px;
+  margin-bottom: 50px;
+  background: rgb(15, 10, 25);
+  color: rgb(42, 87, 87);
+  border: 3px solid rgb(96, 24, 85);
+  border-radius: 70px;
+}
+#songSelect .songs.off {
+  cursor: none;
+  pointer-events: all;
+}
+#songSelect .songs.off:hover {
+  color: aqua;
+  animation: showSong 0.2s;
+}
+#songSelect .selected {
+  padding: 30px;
+  margin-bottom: 50px;
+  background: rgb(15, 10, 25);
+  color: aqua;
+  border: 3px solid magenta;
+  box-shadow: 0 0 20px rgba(250, 30, 210, 0.6), 0 0 20px rgba(250, 30, 210, 0.6) inset;
+  border-radius: 70px;
+  animation: showFrame 0.2s;
+}
+#songSelect .selected ~ .active.beat {
+  animation: activeBeats2 0.2s ease;
+}
 #control-section {
   position: absolute;
   bottom: 0;
   left: 50%;
   transform: translateX(-50%);
-  width: 500px;
-  margin-bottom: 50px;
-  padding: 20px;
-  border: 2px solid magenta;
+  width: 550px;
+  margin-bottom: 60px;
+  padding: 30px;
+  border: 3px solid magenta;
   background: rgb(15, 10, 25);
-  opacity: 1;
-  box-shadow: 0 0 30px rgba(250, 30, 210, 0.4), 0 0 30px rgba(250, 30, 210, 0.4) inset;
-  border-radius: 100px;
-  z-index: 100;
+  box-shadow: 0 0 30px rgba(250, 30, 210, 0.6), 0 0 30px rgba(250, 30, 210, 0.6) inset;
+  border-radius: 120px;
+  z-index: 110;
 }
+
 #control-section.active.beat {
-  animation: activeBeats2 0.2s forwards;
+  animation: activeBeats2 0.2s ease;
 }
+
 #header {
   position: relative;
   text-align: center;
@@ -140,18 +335,25 @@ body {
 }
 
 #artist {
- color: aquamarine;
+  margin: 0 10px;
+  color: aqua;
+  text-shadow: 0 0 30px rgb(0, 255, 255), 0 0 10px rgb(0, 255, 255);
 }
+
 #song {
-  color: aquamarine;
+  margin: 0 10px;
+  color: aqua;
+  text-shadow: 0 0 30px rgb(0, 255, 255), 0 0 10px rgb(0, 255, 255);
 }
 
 #footer {
   display: block;
   position: relative;
   text-align: center;
-  margin: 0 auto;
+  justify-content: center;
+  margin: auto;
 }
+
 #seekbar {
   margin: 10px;
   border-radius: 10px;
@@ -159,104 +361,220 @@ body {
   border: 3px solid rgb(42, 87, 87);
 }
 
-#seekbar > div {
+#seekbar>div {
   width: 0;
   height: 16px;
   margin: -2px 0 0 -2px;
   border-radius: 10px;
-  border:none;
+  border: none;
   box-shadow: 0 0 30px rgb(0, 255, 255), 0 0 10px rgb(0, 255, 255);
   background: aqua;
 }
 
 #control {
   display: flex;
+  height: 100%;
+  justify-content: center;
 }
 
-#control > button {
+#control>button {
+  position: relative;
+  display: inline-block;
   background: none;
   border-radius: 50%;
-  border: 2px solid rgb(42, 87, 87);
-  color: rgb(42, 87, 87);
   width: 40px;
   height: 40px;
-  margin: 5px;
+  margin: 10px;
 }
+
+#control #rewind {
+  border: 3px solid rgb(78, 78, 21);
+  color: rgb(78, 78, 21);
+}
+
+#control #play {
+  border: 3px solid rgb(96, 24, 85);
+  color: rgb(96, 24, 85);
+}
+
+#control #mute {
+  border: 3px solid rgb(42, 87, 74);
+  color: rgb(42, 87, 74);
+}
+
 i {
   padding: 10px;
 }
-#control > button:hover {
-  border-color: aqua;
-  color: aqua;
+
+#control>button:hover {
   transition: 0.1s ease;
-  box-shadow: 0 0 30px rgb(85, 255, 232), 0 0 20px rgba(85, 255, 232, 0.6) inset;
   cursor: none;
 }
-#control > button:focus {
+
+#control #rewind:hover {
+  border-color: yellow;
+  color: yellow;
+  box-shadow: 0 0 30px rgb(255, 229, 85),
+  0 0 20px rgba(255, 229, 85, 0.6) inset;
+}
+
+#control #play:hover {
+  border-color: magenta;
+  color: magenta;
+  box-shadow: 0 0 30px rgba(250, 30, 210),
+    0 0 30px rgba(250, 30, 210, 0.6) inset;
+}
+
+#control #mute:hover {
+  border-color: aquamarine;
+  color: aquamarine;
+  box-shadow: 0 0 30px rgb(85, 255, 200),
+    0 0 20px rgba(85, 255, 200, 0.6) inset;
+}
+
+#control>button:focus {
   cursor: none;
   animation: clicked 0.5s forwards;
 }
-#control > input[type="range"] {
+
+#control>input {
   outline: 0;
   -webkit-appearance: none;
-  appearance: none;
   cursor: none;
-  background: rgb(15, 10, 25);
-  height: 12px;
-  border: 2px solid rgb(42, 87, 87);
-  border-radius: 7px;
-  accent-color: aqua;
+  background: rgb(42, 87, 74);
+  margin-left: 10px;
+  height: 4px;
+  border-radius: 10px;
 }
-input[type="range"]::-webkit-slider-thumb {
+
+#control>input:hover {
+  background: aquamarine;
+  box-shadow: 0 0 15px rgb(85, 255, 200),
+    0 0 40px rgb(85, 255, 200);
+}
+
+#control>input:active {
+  background: aquamarine;
+  box-shadow: 0 0 15px rgb(85, 255, 200),
+    0 0 40px rgb(85, 255, 200);
+}
+
+input::-webkit-slider-thumb {
+  outline: none;
   -webkit-appearance: none;
-  width: 12px;
-  height: 12px;
-  border-radius: 7px;
-  box-shadow: 0 0 35px rgb(85, 255, 232);
-  background: aqua;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background: rgb(42, 87, 74);
 }
-input[type="range"]:active::-webkit-slider-thumb {
+
+input:hover::-webkit-slider-thumb {
   -webkit-appearance: none;
   width: 20px;
   height: 20px;
   border-radius: 12px;
-  box-shadow: 0 0 10px rgb(85, 255, 232),
-    0 0 35px rgb(85, 255, 232);
+  background: aquamarine;
+  box-shadow: 0 0 15px rgb(85, 255, 200),
+    0 0 40px rgb(85, 255, 200);
+}
+
+input:active::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 15px;
+  height: 15px;
+  border-radius: 12px;
+  background: aquamarine;
+  box-shadow: 0 0 15px rgb(85, 255, 200),
+    0 0 40px rgb(85, 255, 200);
 }
 
 @keyframes clicked {
-    0% {   border-color: aqua;
-      color: aqua; }
-    20% {  border: 2px solid rgb(42, 87, 87);
-      color: rgb(42, 87, 87); }
-    40% {   border-color: aqua;
-      color: aqua; }
-    60% {  border: 2px solid rgb(42, 87, 87);
-      color: rgb(42, 87, 87); }
-    80% {   border-color: aqua;
-      color: aqua; }
-    100% {  border: 2px solid rgb(42, 87, 87);
-      color: rgb(42, 87, 87); }
-}
-
-@keyframes activeBeats {
-  0% {
-    width: 40px;
-    height: 40px;
-    box-shadow: 0 0 30px rgb(50, 224, 255),  0 0 20px rgba(50, 224, 255, 0.3) inset;
-  }
-  100% {
-    width: 20px;
-    box-shadow: 0 0 20px rgb(50, 224, 255),  0 0 10px rgba(50, 224, 255, 0.3) inset;
-    height: 20px;
-  }
+  0% { opacity: 1; }
+  20% { opacity: 0.5; }
+  40% { opacity: 1; }
+  60% { opacity: 0.5; }
+  80% { opacity: 1; }
+  100% {  opacity: 0.5; }
 }
 
 @keyframes activeBeats2 {
   0% {
-    box-shadow: 0 0 60px rgba(250, 30, 210, 0.4), 0 0 60px rgba(250, 30, 210, 0.4) inset;
+    box-shadow: 0 0 60px rgba(250, 30, 210, 0.9),
+      0 0 50px rgba(250, 30, 210, 0.9) inset;
   }
+
   100% {
-    box-shadow: 0 0 30px rgba(250, 30, 210, 0.4), 0 0 30px rgba(250, 30, 210, 0.4) inset;
+    box-shadow: 0 0 30px rgba(250, 30, 210, 0.6),
+      0 0 30px rgba(250, 30, 210, 0.6) inset;
   }
+}
+
+@keyframes showLyrics {
+  0%{ opacity: 0; }
+  20%{ opacity: 0.6; }
+  40%{ opacity: 0.2; }
+  60%{ opacity: 0.9; }
+  80%{ opacity: 0.2; }
+  100%{ opacity: 1; }
+}
+
+@keyframes showSong {
+  0%{ color: rgb(42, 87, 87); }
+  20%{ color: aqua; }
+  40%{ color: rgb(42, 87, 87); }
+  60%{ color: aqua; }
+  80%{ color: rgb(42, 87, 87); }
+  100%{ color: aqua; }
+}
+
+@keyframes showFrame {
+  0%{ border: 3px solid rgb(96, 24, 85); }
+  20%{ border: 3px solid magenta; }
+  40%{ border: 3px solid rgb(96, 24, 85); }
+  60%{ border: 3px solid magenta; }
+  80%{ border: 3px solid rgb(96, 24, 85); }
+  100%{ border: 3px solid magenta; }
+}
+
+@keyframes bgpink {
+  0%{ background: magenta;
+    box-shadow: 0 0 10px magenta,
+    0 0 30px magenta,
+    0 0 50px magenta,
+    0 0 70px magenta,
+    0 0 90px magenta; }
+  100% { background: aqua;
+    box-shadow: 0 0 10px aqua,
+    0 0 30px aqua,
+    0 0 50px aqua,
+    0 0 70px aqua,
+    0 0 90px aqua; }
+}
+@keyframes bgyellow {
+  0%{ background: yellow;
+    box-shadow: 0 0 10px yellow,
+    0 0 30px yellow,
+    0 0 50px yellow,
+    0 0 70px yellow,
+    0 0 90px yellow; }
+  100% { background: aqua;
+    box-shadow: 0 0 10px aqua,
+    0 0 30px aqua,
+    0 0 50px aqua,
+    0 0 70px aqua,
+    0 0 90px aqua; }
+}
+@keyframes bgmint {
+  0%{ background: aquamarine;
+    box-shadow: 0 0 10px aquamarine,
+    0 0 30px aquamarine,
+    0 0 50px aquamarine,
+    0 0 70px aquamarine,
+    0 0 90px aquamarine; }
+  100% { background: aqua;
+    box-shadow: 0 0 10px aqua,
+    0 0 30px aqua,
+    0 0 50px aqua,
+    0 0 70px aqua,
+    0 0 90px aqua; }
 }

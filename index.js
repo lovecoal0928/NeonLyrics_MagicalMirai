@@ -21,36 +21,67 @@ const player = new Player({
 
 const startVideo = document.querySelector(".open");
 const lightingBg = document.querySelector("#lightingBg");
-const textContainer = document.querySelector("#text");
+const textContainer = document.querySelector("#lyrics");
 const controlSection = document.querySelector("#control-section");
 const seekbar = document.querySelector("#seekbar");
 const paintedSeekbar = seekbar.querySelector("div");
+const songList = document.getElementById("songSelect");
+const ringArr = ['P', 'Y', 'M', 'A'];
 let musicVolume = document.querySelector(`input[type='range'][id='volume']`);
 let b, c;
+let nounCount = 1;
+
+console.log(textContainer);
 
 startVideo.addEventListener('click', () => {
+  // シークバーの初期化
+  player.requestMediaSeek(0);
+  paintedSeekbar.style.width = 0;
   // #overlay を非表示に
   setTimeout(function () {
     document.querySelector(".top").style.display = "none";
     document.querySelector(".main").style.display = "block";
   }, 600);
 });
-
+// topで使うマウスカーソル
 let cursor = document.getElementById('cursor');
-document.addEventListener('mousemove', function (e) {
+document.addEventListener('mousemove', (e) => {
   let x = e.clientX;
   let y = e.clientY;
   cursor.style.left = x + "px";
   cursor.style.top = y + "px";
 });
-
+// mainで使うマウスカーソル
 let cursor2 = document.getElementById('cursorB');
-document.addEventListener('mousemove', function (e) {
+document.addEventListener('mousemove', (e) => {
   let x = e.clientX;
   let y = e.clientY;
   cursor2.style.left = x + "px";
   cursor2.style.top = y + "px";
 });
+
+document.body.addEventListener("click", drop, false);
+function drop(e) {
+  // マウスの位置
+  let x = e.pageX;
+  let y = e.pageY;
+
+  // ringの座標設定
+  let ring = document.createElement("div");
+  ring.className = 'ring'
+  ring.style.top = y + "px";
+  ring.style.left = x + "px";
+  document.body.appendChild(ring);
+
+  // ランダムでringに色を付ける
+  let ringColor = ringArr[ Math.floor( Math.random() * ringArr.length ) ] ;
+  ring.className = "ring"+ringColor;
+
+  // アニメーションが終わったリングを消す
+  ring.addEventListener("animationend", () => {
+      ring.remove();
+  }, false);
+}
 
 // TextAlive Player
 player.addListener({
@@ -58,9 +89,9 @@ player.addListener({
     // TextAlive ホストと接続されていなければ再生コントロールを表示する
     if (!app.managed) {
       document.querySelector("#control").style.display = "block";
-    }
-    if (!app.songUrl) {
-      document.querySelector("#media").className = "disabled";
+    // }
+    // if (!app.songUrl) {
+    //   document.querySelector("#media").className = "disabled";
 
       player.createFromSongUrl("https://piapro.jp/t/RoPB/20220122172830", {
         video: {
@@ -103,20 +134,14 @@ player.addListener({
     if (b !== beat) {
       if (beat) {
         requestAnimationFrame(() => {
-          cursor2.className = "active";
           controlSection.className = "active";
           requestAnimationFrame(() => {
-            cursor2.className = "active beat";
             controlSection.className = "active beat";
         });
         });
       } b = beat;
     }
 
-    let segments = player.findChorus(position);
-    if (segments) {
-      console.log(segments);
-    }
     // 歌詞情報がなければこれで処理を終わる
     if (!player.video.firstChar) {
       return;
@@ -129,7 +154,7 @@ player.addListener({
 
     // 500ms先に発声される文字を取得
     let current = c || player.video.firstChar;
-    while (current && current.startTime < position + 100) {
+    while (current && current.startTime < position +400) {
       // 新しい文字が発声されようとしている
       if (c !== current) {
         newChar(current);
@@ -150,7 +175,139 @@ player.addListener({
     element.classList.replace('fa-pause', 'fa-play');
   },
 });
-
+let firstSong = document.getElementById("song1");
+let currentSong = firstSong;
+firstSong.addEventListener('click', () => {
+  currentSong.classList.replace('selected', 'off');
+  firstSong.classList.replace('off', 'selected');
+  currentSong = firstSong;
+  player.requestMediaSeek(0);
+  paintedSeekbar.style.width = 0;
+  while (textContainer.firstChild)
+    textContainer.removeChild(textContainer.firstChild);
+  // Loading Memories / せきこみごはん feat. 初音ミク
+  player.createFromSongUrl("https://piapro.jp/t/RoPB/20220122172830", {
+    video: {
+      // 音楽地図訂正履歴: https://songle.jp/songs/2243651/history
+      beatId: 4086301,
+      chordId: 2221797,
+      repetitiveSegmentId: 2247682,
+      // 歌詞タイミング訂正履歴: https://textalive.jp/lyrics/piapro.jp%2Ft%2FRoPB%2F20220122172830
+      lyricId: 53718,
+      lyricDiffId: 7076
+    }
+  });
+});
+let secondSong = document.getElementById("song2");
+secondSong.addEventListener('click', () => {
+  currentSong.classList.replace('selected', 'off');
+  secondSong.classList.replace('off', 'selected');
+  currentSong = secondSong;
+  player.requestMediaSeek(0);
+  paintedSeekbar.style.width = 0;
+  while (textContainer.firstChild)
+    textContainer.removeChild(textContainer.firstChild);
+  // 青に溶けた風船 / シアン・キノ feat. 初音ミク
+  player.createFromSongUrl("https://piapro.jp/t/9cSd/20220205030039", {
+    video: {
+      // 音楽地図訂正履歴: https://songle.jp/songs/2245015/history
+      beatId: 4083452,
+      chordId: 2221996,
+      repetitiveSegmentId: 2247861,
+      // 歌詞タイミング訂正履歴: https://textalive.jp/lyrics/piapro.jp%2Ft%2F9cSd%2F20220205030039
+      lyricId: 53745,
+      lyricDiffId: 7080
+    }
+  });
+});
+let thirdSong = document.getElementById("song3");
+thirdSong.addEventListener('click', () => {
+  currentSong.classList.replace('selected', 'off');
+  thirdSong.classList.replace('off', 'selected');
+  currentSong = thirdSong;
+  player.requestMediaSeek(0);
+  paintedSeekbar.style.width = 0;
+  while (textContainer.firstChild)
+    textContainer.removeChild(textContainer.firstChild);
+  // 歌の欠片と / imo feat. MEIKO
+  player.createFromSongUrl("https://piapro.jp/t/Yvi-/20220207132910", {
+    video: {
+      // 音楽地図訂正履歴: https://songle.jp/songs/2245016/history
+      beatId: 4086832,
+      chordId: 2222074,
+      repetitiveSegmentId: 2247935,
+      // 歌詞タイミング訂正履歴: https://textalive.jp/lyrics/piapro.jp%2Ft%2FYvi-%2F20220207132910
+      lyricId: 53746,
+      lyricDiffId: 7082
+    }
+  });
+});
+let forthSong = document.getElementById("song4");
+forthSong.addEventListener('click', () => {
+  currentSong.classList.replace('selected', 'off');
+  forthSong.classList.replace('off', 'selected');
+  currentSong = forthSong;
+  player.requestMediaSeek(0);
+  paintedSeekbar.style.width = 0;
+  while (textContainer.firstChild)
+    textContainer.removeChild(textContainer.firstChild);
+  // 未完のストーリー / 加賀（ネギシャワーP） feat. 初音ミク
+  player.createFromSongUrl("https://piapro.jp/t/ehtN/20220207101534", {
+    video: {
+      // 音楽地図訂正履歴: https://songle.jp/songs/2245017/history
+      beatId: 4083459,
+      chordId: 2222147,
+      repetitiveSegmentId: 2248008,
+      // 歌詞タイミング訂正履歴: https://textalive.jp/lyrics/piapro.jp%2Ft%2FehtN%2F20220207101534
+      lyricId: 53747,
+      lyricDiffId: 7083
+    }
+  });
+});
+let fifthSong = document.getElementById("song5");
+fifthSong.addEventListener('click', () => {
+  currentSong.classList.replace('selected', 'off');
+  fifthSong.classList.replace('off', 'selected');
+  currentSong = fifthSong;
+  player.requestMediaSeek(0);
+  paintedSeekbar.style.width = 0;
+  while (textContainer.firstChild)
+    textContainer.removeChild(textContainer.firstChild);
+  // みはるかす / ねこむら（cat nap） feat. 初音ミク
+  player.createFromSongUrl("https://piapro.jp/t/QtjE/20220207164031", {
+    video: {
+      // 音楽地図訂正履歴: https://songle.jp/songs/2245018/history
+      beatId: 4083470,
+      chordId: 2222187,
+      repetitiveSegmentId: 2248075,
+      // 歌詞タイミング訂正履歴: https://textalive.jp/lyrics/piapro.jp%2Ft%2FQtjE%2F20220207164031
+      lyricId: 53748,
+      lyricDiffId: 7084
+    }
+  });
+});
+let sixthSong = document.getElementById("song6");
+sixthSong.addEventListener('click', () => {
+  currentSong.classList.replace('selected', 'off');
+  sixthSong.classList.replace('off', 'selected');
+  currentSong = sixthSong;
+  player.requestMediaSeek(0);
+  paintedSeekbar.style.width = 0;
+  while (textContainer.firstChild)
+    textContainer.removeChild(textContainer.firstChild);
+  // fear / 201 feat. 初音ミク
+  player.createFromSongUrl("https://piapro.jp/t/GqT2/20220129182012", {
+    video: {
+      // 音楽地図訂正履歴: https://songle.jp/songs/2245019/history
+      beatId: 4083475,
+      chordId: 2222294,
+      repetitiveSegmentId: 2248170,
+      // 歌詞タイミング訂正履歴: https://textalive.jp/lyrics/piapro.jp%2Ft%2FGqT2%2F20220129182012
+      lyricId: 53749,
+      lyricDiffId: 7085
+    }
+  });
+});
 // 再生ボタン
 document.querySelector("#play").addEventListener(
   "click", (e) => {
@@ -249,10 +406,7 @@ seekbar.addEventListener("click", (e) => {
   return false;
 });
 
-/**
- * 新しい文字の発声時に呼ばれる
- * Called when a new character is being vocalized
- */
+/* 新しい文字の発声時に呼ばれる */
 function newChar(current) {
   // 品詞 (part-of-speech)
   // https://developer.textalive.jp/packages/textalive-app-api/interfaces/iword.html#pos
@@ -264,13 +418,15 @@ function newChar(current) {
   ) {
     classes.push("noun");
   }
-
-  // フレーズの最後の文字か否か
+  // フレーズの最後の文字
+  if (current.parent.parent.firstChar === current) {
+    classes.push("firstChar");
+  }
+  // フレーズの最後の文字
   if (current.parent.parent.lastChar === current) {
     classes.push("lastChar");
   }
-
-  // 英単語の最初か最後の文字か否か
+  // 英単語の最初か最後の文字
   if (current.parent.language === "en") {
     if (current.parent.lastChar === current) {
       classes.push("lastCharInEnglishWord");
@@ -279,34 +435,37 @@ function newChar(current) {
     }
   }
 
-  // noun, lastChar クラスを必要に応じて追加
-  const div = document.createElement("div");
-  div.appendChild(document.createTextNode(current.text));
-
+  // クラスを必要に応じて追加
+  const p = document.createElement("p");
+  const br = document.createElement("br");
+  p.appendChild(document.createTextNode(current.text));
   // 文字を画面上に追加
-  const container = document.createElement("div");
-  container.className = classes.join(" ");
-  container.appendChild(div);
-  container.addEventListener("click", () => {
-    player.requestMediaSeek(current.startTime);
-  });
-  textContainer.appendChild(container);
+  p.className = classes.join(" ");
+  textContainer.appendChild(p);
+  if (p.classList.contains('lastChar')) {
+    textContainer.appendChild(br);
+  }
+  if (p.classList.contains('noun') || p.classList.contains('firstChar') || p.classList.contains('lastChar')) {
+    // ringの座標設定
+    let ring = document.createElement("div");
+    ring.className = 'ring'
+    ring.style.top = Math.floor( Math.random() * 520 ) + 100 + "px";
+    ring.style.left = Math.floor( Math.random() * 980 ) + 200 + "px";
+    document.body.appendChild(ring);
+  
+    // ランダムでringに色を付ける
+    let ringColor = ringArr[ Math.floor( Math.random() * ringArr.length ) ] ;
+    ring.className = "ring"+ringColor;
+  
+    // アニメーションが終わったリングを消す
+    ring.addEventListener("animationend", () => {
+        ring.remove();
+    }, false);
+  }
 }
-
-/**
- * 歌詞表示をリセットする
- * Reset lyrics view
- */
+/* 歌詞表示をリセットする */
 function resetChars() {
   c = null;
   while (textContainer.firstChild)
     textContainer.removeChild(textContainer.firstChild);
-}
-
-// 再生が一時停止・停止したら歌詞表示をリセット
-function onPause() {
-  document.querySelector("#text").textContent = "";
-}
-function onStop() {
-  document.querySelector("#text").textContent = "";
 }
