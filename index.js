@@ -61,7 +61,7 @@ document.addEventListener('mousemove', (e) => {
 
 lightingBg.addEventListener('click', () => {
   let bgColor =  ringArr[ Math.floor( Math.random() * ringArr.length ) ];
-  lightingBg.className = ("lighting"+bgColor);
+  lightingBg.className = ("lightbg"+bgColor);
 });
 
 document.body.addEventListener("click", drop, false);

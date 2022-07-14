@@ -227,17 +227,17 @@ body {
   overflow: hidden;
 }
 
-.lightingA,
-.lightingM,
-.lightingY,
-.lightingP {
+.lightbgA .lightingA,
+.lightbgM .lightingA,
+.lightbgY .lightingA,
+.lightbgP .lightingA {
   position: relative;
   width: 48px;
   height: 50px;
   display: block;
 }
 
-.lightingA::before {
+.lightbgA .lightingA::before {
   content: '';
   position: absolute;
   top: 0;
@@ -256,7 +256,7 @@ body {
   pointer-events: none;
   transition: 1s;
 }
-.lightingM::before {
+.lightbgM .lightingA::before {
   content: '';
   position: absolute;
   top: 0;
@@ -275,7 +275,7 @@ body {
   pointer-events: none;
   transition: 1s;
 }
-.lightingY::before {
+.lightbgY .lightingA::before {
   content: '';
   position: absolute;
   top: 0;
@@ -294,7 +294,7 @@ body {
   pointer-events: none;
   transition: 1s;
 }
-.lightingP::before {
+.lightbgP .lightingA::before {
   content: '';
   position: absolute;
   top: 0;
@@ -313,10 +313,10 @@ body {
   pointer-events: none;
   transition: 1s;
 }
-.lightingA:hover::before,
-.lightingM:hover::before,
-.lightingY:hover::before,
-.lightingP:hover::before {
+.lightbgA .lightingA:hover::before,
+.lightbgM .lightingA:hover::before,
+.lightbgY .lightingA:hover::before,
+.lightbgP .lightingA:hover::before {
   transform: scale(0.5);
   opacity: 0.9;
   transition: 0s;
