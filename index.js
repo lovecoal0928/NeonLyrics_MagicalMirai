@@ -20,7 +20,6 @@ const player = new Player({
 });
 
 const startVideo = document.querySelector(".open");
-const lightingBg = document.querySelector("#lightingBg");
 const textContainer = document.querySelector("#lyrics");
 const controlSection = document.querySelector("#control-section");
 const seekbar = document.querySelector("#seekbar");
@@ -60,8 +59,14 @@ document.addEventListener('mousemove', (e) => {
   cursor2.style.top = y + "px";
 });
 
+lightingBg.addEventListener('click', () => {
+  let bgColor =  ringArr[ Math.floor( Math.random() * ringArr.length ) ];
+  lightingBg.className = ("lighting"+bgColor);
+});
+
 document.body.addEventListener("click", drop, false);
 function drop(e) {
+
   // マウスの位置
   let x = e.pageX;
   let y = e.pageY;
@@ -74,8 +79,9 @@ function drop(e) {
   document.body.appendChild(ring);
 
   // ランダムでringに色を付ける
-  let ringColor = ringArr[ Math.floor( Math.random() * ringArr.length ) ] ;
+  let ringColor = ringArr[ Math.floor( Math.random() * ringArr.length ) ];
   ring.className = "ring"+ringColor;
+
 
   // アニメーションが終わったリングを消す
   ring.addEventListener("animationend", () => {
@@ -445,6 +451,23 @@ function newChar(current) {
   if (p.classList.contains('lastChar')) {
     textContainer.appendChild(br);
   }
+    // ringの座標設定
+    let dot = document.createElement("div");
+    dot.className = 'dot'
+    dot.style.top = Math.floor( Math.random() * 800 ) + 100 + "px";
+    dot.style.left = Math.floor( Math.random() * 1500 ) + 200 + "px";
+    document.body.appendChild(dot);
+  
+    // ランダムでringに色を付ける
+    let dotColor = ringArr[ Math.floor( Math.random() * ringArr.length ) ] ;
+    dot.className = "dot"+dotColor;
+  
+    // アニメーションが終わったリングを消す
+    dot.addEventListener("animationend", () => {
+      dot.remove();
+    });
+
+
   if (p.classList.contains('noun') || p.classList.contains('firstChar') || p.classList.contains('lastChar')) {
     // ringの座標設定
     let ring = document.createElement("div");
@@ -460,7 +483,7 @@ function newChar(current) {
     // アニメーションが終わったリングを消す
     ring.addEventListener("animationend", () => {
         ring.remove();
-    }, false);
+    });
   }
 }
 /* 歌詞表示をリセットする */
