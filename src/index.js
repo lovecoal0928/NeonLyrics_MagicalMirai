@@ -451,21 +451,22 @@ function newChar(current) {
   if (p.classList.contains('lastChar')) {
     textContainer.appendChild(br);
   }
-    // ringの座標設定
-    let dot = document.createElement("div");
-    dot.className = 'dot'
-    dot.style.top = Math.floor( Math.random() * 800 ) + 100 + "px";
-    dot.style.left = Math.floor( Math.random() * 1500 ) + 200 + "px";
-    document.body.appendChild(dot);
-  
-    // ランダムでringに色を付ける
-    let dotColor = ringArr[ Math.floor( Math.random() * ringArr.length ) ] ;
-    dot.className = "dot"+dotColor;
-  
-    // アニメーションが終わったリングを消す
-    dot.addEventListener("animationend", () => {
-      dot.remove();
-    });
+
+  // dotの座標設定
+  let dot = document.createElement("div");
+  dot.className = 'dot'
+  dot.style.top = Math.floor( Math.random() * 800 ) + 100 + "px";
+  dot.style.left = Math.floor( Math.random() * 1500 ) + 200 + "px";
+  document.body.appendChild(dot);
+
+  // ランダムでdotに色を付ける
+  let dotColor = ringArr[ Math.floor( Math.random() * ringArr.length ) ] ;
+  dot.className = "dot"+dotColor;
+
+  // アニメーションが終わったdotを消す
+  dot.addEventListener("animationend", () => {
+    dot.remove();
+  });
 
 
   if (p.classList.contains('noun') || p.classList.contains('firstChar') || p.classList.contains('lastChar')) {
