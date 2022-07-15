@@ -359,25 +359,6 @@ body {
 #lyrics>p.noun:hover {
   text-shadow: 0 0 10px, 0 0 30px, 0 0 50px;
 }
-#lyrics>p.noun.ripple {
-  position: absolute;
-  border-radius: 2px solid  aqua;
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  animation: rippleEffect 1200ms 1;
-  opacity: 0;
-}
-@keyframes rippleEffect {
-  from {
-      transform: scale(1);
-      opacity: 0.45;
-  }
-  to {
-      transform: scale(50);
-      opacity: 0;
-  }
-}
 
 #media {
   position: absolute;
@@ -662,46 +643,3 @@ input:active::-webkit-slider-thumb {
   80%{ border: 3px solid rgb(96, 24, 85); }
   100%{ border: 3px solid magenta; }
 }
-/* 
-@keyframes bgpink {
-  0%{ background: magenta;
-    box-shadow: 0 0 10px magenta,
-    0 0 30px magenta,
-    0 0 50px magenta,
-    0 0 70px magenta,
-    0 0 90px magenta; }
-  100% { background: aqua;
-    box-shadow: 0 0 10px aqua,
-    0 0 30px aqua,
-    0 0 50px aqua,
-    0 0 70px aqua,
-    0 0 90px aqua; }
-}
-@keyframes bgyellow {
-  0%{ background: yellow;
-    box-shadow: 0 0 10px yellow,
-    0 0 30px yellow,
-    0 0 50px yellow,
-    0 0 70px yellow,
-    0 0 90px yellow; }
-  100% { background: aqua;
-    box-shadow: 0 0 10px aqua,
-    0 0 30px aqua,
-    0 0 50px aqua,
-    0 0 70px aqua,
-    0 0 90px aqua; }
-}
-@keyframes bgmint {
-  0%{ background: aquamarine;
-    box-shadow: 0 0 10px aquamarine,
-    0 0 30px aquamarine,
-    0 0 50px aquamarine,
-    0 0 70px aquamarine,
-    0 0 90px aquamarine; }
-  100% { background: aqua;
-    box-shadow: 0 0 10px aqua,
-    0 0 30px aqua,
-    0 0 50px aqua,
-    0 0 70px aqua,
-    0 0 90px aqua; }
-} */

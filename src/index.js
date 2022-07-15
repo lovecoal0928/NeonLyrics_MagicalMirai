@@ -3,7 +3,7 @@ const { Player } = TextAliveApp;
 // 単語が発声されていたら #text に表示する
 const animateWord = function (now, unit) {
   if (unit.contains(now)) {
-    document.querySelector("#text").textContent = unit.text;
+    document.querySelector(".lyrics").textContent = unit.text;
   }
 };
 
@@ -41,6 +41,9 @@ startVideo.addEventListener('click', () => {
     document.querySelector(".top").style.display = "none";
     document.querySelector(".main").style.display = "block";
   }, 600);
+  // 背景の初期カラー指定
+  let bgColor =  ringArr[ Math.floor( Math.random() * ringArr.length ) ];
+  lightingBg.className = ("lightbg"+bgColor);
 });
 // topで使うマウスカーソル
 let cursor = document.getElementById('cursor');
