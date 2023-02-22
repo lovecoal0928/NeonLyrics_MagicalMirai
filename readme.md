@@ -1,7 +1,7 @@
 # Magical Neon Lyrics
 ## 初音ミク「マジカルミライ」10th Anniversary プログラミングコンテスト応募作品
 
-##デプロイ先URL
+## デプロイ先URL
 https://magicalmirai.com/10th/procon/entry_10th_app/entry_app01/
 
 ## 使用方法
